@@ -28,7 +28,7 @@ connection.stateChanged(function (change) {
 });
 
 // execute this sample
-runHubConnectionAPI(url);
+runBasicAuth(url);
 
 function displayState(state) {
     return ["connecting", "connected", "reconnecting", state, "disconnected"][state];
@@ -68,7 +68,7 @@ function runBasicAuth() {
     var hub = $.connection.authHub;
     connection.url = url + "basicauth/signalr";
     // increase connect timeout to give time to user to input credentials
-    connection.transportConnectTimeout = 10000;
+    connection.transportConnectTimeout = 20000;
     hub.client.invoked = function (connectionId, date) {
         log(connectionId);
     }

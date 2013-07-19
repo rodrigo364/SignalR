@@ -191,7 +191,7 @@ namespace Microsoft.AspNet.SignalR
             }
 
             if (IsNegotiationRequest(context.Request))
-            {
+            {                
                 return ProcessNegotiationRequest(context);
             }
             else if (IsPingRequest(context.Request))
@@ -289,6 +289,7 @@ namespace Microsoft.AspNet.SignalR
             string tokenUserName = tokens.Length > 1 ? tokens[1] : String.Empty;
             string userName = GetUserIdentity(context);
 
+            System.Diagnostics.Debugger.Launch();
             if (!String.Equals(tokenUserName, userName, StringComparison.OrdinalIgnoreCase))
             {
                 throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, Resources.Error_UnrecognizedUserIdentity));

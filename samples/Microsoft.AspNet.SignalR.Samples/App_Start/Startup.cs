@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web.Cors;
 using Microsoft.AspNet.SignalR.Samples;
 using Microsoft.AspNet.SignalR.Tests.Common;
 using Microsoft.AspNet.SignalR.Tests.Common.Connections;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Owin;
 
 [assembly: OwinStartup(typeof(Startup))]
@@ -16,6 +18,18 @@ namespace Microsoft.AspNet.SignalR.Samples
     {
         public void Configuration(IAppBuilder app)
         {
+            var corsOptions = new CorsOptions
+            {
+                CorsPolicy = new CorsPolicy
+                {
+                    AllowAnyHeader = true,
+                    AllowAnyMethod = true,
+                    AllowAnyOrigin = true,
+                    SupportsCredentials = true
+                }
+            };
+            app.UseCors(corsOptions);
+
             app.MapConnection<SendingConnection>("/sending-connection");
             app.MapConnection<TestConnection>("/test-connection");
             app.MapConnection<RawConnection>("/raw-connection");
@@ -33,10 +47,10 @@ namespace Microsoft.AspNet.SignalR.Samples
             app.MapHubs(config);
 
             app.Map("/basicauth", map =>
-            {
+            {               
                 map.UseBasicAuthentication(new BasicAuthenticationProvider());
                 map.MapConnection<AuthenticatedEchoConnection>("/echo");
-                map.MapHubs();
+                map.MapHubs();                
             });
 
             BackgroundThread.Start();
