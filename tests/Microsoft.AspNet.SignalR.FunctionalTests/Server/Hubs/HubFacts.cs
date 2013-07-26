@@ -981,7 +981,7 @@ namespace Microsoft.AspNet.SignalR.Tests
                     for (int i = 0; i < max; i++)
                     {
                         user.Index = i;
-                        proxy.InvokeWithTimeout("joinRoom", user);
+                        proxy.Invoke("joinRoom", user);
                     }
 
                     // Force Reconnect
@@ -990,7 +990,7 @@ namespace Microsoft.AspNet.SignalR.Tests
                     for (int i = max; i < 2 * max; i++)
                     {
                         user.Index = i;
-                        proxy.InvokeWithTimeout("joinRoom", user);
+                        proxy.Invoke("joinRoom", user);
                     }
 
                     Assert.True(countDown.Wait(TimeSpan.FromSeconds(30)), "Didn't receive " + max + " messages. Got " + (max - countDown.Count) + " missed " + String.Join(",", countDown.Left.Select(i => i.ToString())));

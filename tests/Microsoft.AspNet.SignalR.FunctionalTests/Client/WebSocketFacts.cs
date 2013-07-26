@@ -53,8 +53,17 @@ namespace Microsoft.AspNet.SignalR.Tests
 
                     TestUtilities.AssertUnwrappedException<InvalidOperationException>(() =>
                     {
+                        Assert.Throws<AggregateException>(() =>
+                        {
+                            hub.InvokeWithTimeout<string>("EchoReturn", new string('a', 64 * 1024));
+                        });
+                    }
+                    else if (hostType == HostType.HttpListener)
+                    {
+                        {
                         hub.Invoke<string>("EchoReturn", new string('a', 64 * 1024)).Wait();
-                    });
+                        });
+                    }
                 }
             }
         }
