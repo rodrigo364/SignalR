@@ -51,19 +51,10 @@ namespace Microsoft.AspNet.SignalR.Tests
 
                     connection.Start(host.Transport).Wait();
 
-                    TestUtilities.AssertUnwrappedException<InvalidOperationException>(() =>
+                    Assert.Throws<Xunit.Sdk.TrueException>(() =>
                     {
-                        Assert.Throws<AggregateException>(() =>
-                        {
-                            hub.InvokeWithTimeout<string>("EchoReturn", new string('a', 64 * 1024));
-                        });
-                    }
-                    else if (hostType == HostType.HttpListener)
-                    {
-                        {
-                        hub.Invoke<string>("EchoReturn", new string('a', 64 * 1024)).Wait();
-                        });
-                    }
+                        hub.InvokeWithTimeout<string>("EchoReturn", new string('a', 64 * 1024));
+                    });
                 }
             }
         }

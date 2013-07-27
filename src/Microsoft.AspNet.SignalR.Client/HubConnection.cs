@@ -84,7 +84,7 @@ namespace Microsoft.AspNet.SignalR.Client
 
         public override void OnReconnecting()
         {
-            ClearInvocationCallbacks(Resources.Message_Reconnecting);
+            //ClearInvocationCallbacks(Resources.Message_Reconnecting);
             base.OnReconnecting();
         }
 
@@ -142,7 +142,7 @@ namespace Microsoft.AspNet.SignalR.Client
 
         protected override void OnClosed()
         {
-            ClearInvocationCallbacks(Resources.Message_ConnectionClosed);
+            //ClearInvocationCallbacks(Resources.Message_ConnectionClosed);
             base.OnClosed();
         }
 
