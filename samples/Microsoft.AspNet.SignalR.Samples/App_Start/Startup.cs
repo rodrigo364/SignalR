@@ -32,6 +32,13 @@ namespace Microsoft.AspNet.SignalR.Samples
 
             app.MapSignalR(config);
 
+            app.Map("/cors", map =>
+            {
+                ConfigureCors(app);
+                app.MapSignalR<RawConnection>("/raw-connection");
+                map.MapSignalR();
+            });
+
             app.Map("/basicauth", map =>
             {
                 map.UseBasicAuthentication(new BasicAuthenticationProvider());
